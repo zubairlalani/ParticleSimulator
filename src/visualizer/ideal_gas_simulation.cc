@@ -1,14 +1,14 @@
 #include <visualizer/ideal_gas_simulation.h>
 
-namespace naivebayes {
+namespace idealgas {
 
 namespace visualizer {
 
-NaiveBayesApp::NaiveBayesApp() {
+IdealGasSimulation::IdealGasSimulation() {
   ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
-void NaiveBayesApp::draw() {
+void IdealGasSimulation::draw() {
   ci::Color8u background_color(0, 0, 0);  // light yellow
   ci::gl::clear(background_color);
 
@@ -17,19 +17,22 @@ void NaiveBayesApp::draw() {
       glm::vec2(kWindowSize / 2, kMargin / 2), ci::Color("white"));
 }
 
-void NaiveBayesApp::mouseDown(ci::app::MouseEvent event) {
+void IdealGasSimulation::mouseDown(ci::app::MouseEvent event) {
 }
 
-void NaiveBayesApp::mouseDrag(ci::app::MouseEvent event) {
+void IdealGasSimulation::mouseDrag(ci::app::MouseEvent event) {
 }
 
-void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
+void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_SPACE:
+      break;
+
+    case ci::app::KeyEvent::KEY_DELETE:
       break;
   }
 }
 
 }  // namespace visualizer
 
-}  // namespace naivebayes
+}  // namespace idealgas

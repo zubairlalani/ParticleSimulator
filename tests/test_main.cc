@@ -1,4 +1,6 @@
-//
-// Created by Zubair Lalani on 10/28/20.
-//
+#define CATCH_CONFIG_MAIN
+#include <catch2/catch.hpp>
 
+TEST_CASE("Test") {
+  REQUIRE(true);
+}
