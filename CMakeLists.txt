@@ -52,14 +52,14 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
-        src/visualizer/ideal_gas_simulation.cc)
+        src/visualizer/ideal_gas_simulation.cc src/visualizer/particle_box.cc)
 
 list(APPEND TEST_FILES )
 
 ci_make_app(
         APP_NAME        ideal-gas-simulation
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES}
+        SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES} src/core/particle.cc include/core/particle.h
         INCLUDES        include
 )
 

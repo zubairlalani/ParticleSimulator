@@ -3,7 +3,12 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "core/particle.h"
+#include "visualizer/particle_box.h"
 #include <string>
+#include <vector>
+
+using std::vector;
 
 namespace idealgas {
 
@@ -30,6 +35,9 @@ class IdealGasSimulation : public ci::app::App {
   const double kMargin = 50;
 
  private:
+  std::vector<idealgas::Particle> particles;
+  idealgas::ParticleBox particle_box_;
+
 };
 
 }  // namespace visualizer
