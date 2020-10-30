@@ -38,14 +38,15 @@ void IdealGasSimulation::draw() {
 
         glm::vec2 v1 = particles[x].GetVelocity();
         glm::vec2 v2 = particles[y].GetVelocity();
-        //bool opposite = (v1.x >0 && v2.x < 0) || (v1.x < 0 && v2.x > 0) || (v1.y > 0 && v2.y < 0) || (v1.y < 0 && v2.y > 0);
-        if (glm::length(particle_dist) <=  10 && glm::dot(v1-v2, x1-x2) < 0) {
 
+        if (glm::length(particle_dist) <=  10 && glm::dot(v1-v2, x1-x2) < 0) {
+          //std::cout << "Distance: " << particle_dist.x << " " << particle_dist.y << std::endl;
           double dot_product = glm::dot((v1 - v2), (x1 - x2));
           double length_squared = glm::pow(glm::length(x1 - x2), 2);
           double division = dot_product / length_squared;
           particle_dist *= division;
           glm::vec2 new_vel = v1 - particle_dist;
+          std::cout << "New Velocity: " << new_vel.x << " " << new_vel.y << std::endl;
 
 
           double dot_product2 = glm::dot((v2 - v1), (x2 - x1));
@@ -53,8 +54,9 @@ void IdealGasSimulation::draw() {
           double division2 = dot_product2 / length_squared2;
           glm::vec2 particle_dist2 = x2 - x1;
           particle_dist2 *= division2;
-          glm::vec2 new_vel2 = v1 - particle_dist2;
+          glm::vec2 new_vel2 = v2 - particle_dist2;
 
+          std::cout << "New Velocity2: " << new_vel2.x << " " << new_vel2.y << std::endl;
           particles[x].SetVelocity(new_vel);
           particles[y].SetVelocity(new_vel2);
 
