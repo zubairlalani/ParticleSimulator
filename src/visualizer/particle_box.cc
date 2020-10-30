@@ -17,7 +17,7 @@ void ParticleBox::Render(std::vector<idealgas::Particle>& particles) const {
   for(size_t x = 0; x < particles.size(); x++) {
     particles[x].UpdatePosition();
     ci::gl::color (ci::Color::black());
-    ci::gl::drawSolidCircle(particles[x].GetPosition(), 10);
+    ci::gl::drawSolidCircle(particles[x].GetPosition(), 5);
   }
 }
 

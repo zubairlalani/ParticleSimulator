@@ -25,11 +25,11 @@ class IdealGasSimulation : public ci::app::App {
    * Initializes sketchpad and model
    */
    IdealGasSimulation();
-
-  void draw() override;
-  void mouseDown(ci::app::MouseEvent event) override;
-  void mouseDrag(ci::app::MouseEvent event) override;
-  void keyDown(ci::app::KeyEvent event) override;
+   void update() override;
+   void draw() override;
+   void mouseDown(ci::app::MouseEvent event) override;
+   void mouseDrag(ci::app::MouseEvent event) override;
+   void keyDown(ci::app::KeyEvent event) override;
 
   const double kWindowSize = 675;
   const double kMargin = 50;
