@@ -11,13 +11,15 @@ class ParticleBox {
                 size_t pixels_x,
                 size_t pixels_y);
 
-  void Render(std::vector<idealgas::Particle>& particles) const;
+  void Render();
 
+  void UpdateParticleVelocities(size_t kMargin);
+  void AddParticle();
   void Clear();
-
  private:
   const ci::Color kBoxColor = ci::Color::white();
   glm::vec2 upper_left_corner_;
+  std::vector<Particle> particles_;
   size_t pixels_x_;
   size_t pixels_y_;
 
