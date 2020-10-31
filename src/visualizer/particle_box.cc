@@ -13,7 +13,10 @@ ParticleBox::ParticleBox(const glm::vec2 &upper_left_corner,
 
 void ParticleBox::RenderParticles() {
   ci::gl::color(kBoxColor);
-  ci::gl::drawStrokedRect(ci::Rectf(upper_left_corner_, upper_left_corner_ + ci::vec2(pixels_x_, pixels_y_)));
+  ci::gl::drawStrokedRect(ci::Rectf(
+      upper_left_corner_, upper_left_corner_ + ci::vec2(pixels_x_, pixels_y_)));
+
+  // Draws all particles onto screen
   for(auto & particle : particles_) {
     ci::gl::color (kParticleColor); // Pink/Purplish color
     ci::gl::drawSolidCircle(particle.GetPosition(), kParticleRadius);
@@ -29,6 +32,7 @@ void ParticleBox::UpdateParticles(size_t kMargin) {
       // Makes sure that it doesn't check for a collision between a particle and itself
       if(particles_.size() > 1
          && particles_[i].GetPosition() != particles_[j].GetPosition()) {
+
         if(particles_[i].IsParticleCollision(particles_[j])) {
           glm::vec2 new_vel = particles_[i].CalculateVelocity(particles_[j]);
           glm::vec2 new_vel2 = particles_[j].CalculateVelocity(particles_[i]);

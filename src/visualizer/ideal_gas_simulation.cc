@@ -19,7 +19,7 @@ void IdealGasSimulation::draw() {
   ci::gl::drawStringCentered(
       "IDEAL GAS SIMULATION",
       glm::vec2(kWindowSize / 2, kMargin / 2),
-      ci::Color("white"));
+      ci::Color("white")); // Creates title at the top of the screen
 
   particle_box_.RenderParticles();
 }

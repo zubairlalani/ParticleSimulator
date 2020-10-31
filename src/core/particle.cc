@@ -14,23 +14,28 @@ void Particle::UpdatePosition() {
 }
 
 bool Particle::IsParticleCollision(const Particle& other_particle) const {
-  glm::vec2 x2 = other_particle.GetPosition();
-  glm::vec2 v2 = other_particle.GetVelocity();
-  glm::vec2 particle_dist = position_ - x2;
-  double dot_product = glm::dot(velocity_-v2, particle_dist);
-  if (glm::length(particle_dist) <=  2*radius_ && dot_product < 0) {
+  glm::vec2 velocity_diff = velocity_ - other_particle.GetVelocity();
+  glm::vec2 particle_dist = position_ - other_particle.GetPosition();
+  double dot_product = glm::dot(velocity_diff, particle_dist);
+
+  // When a particle collides they are at the most the sum of the radii away
+  // dot_product < 0 makes sure the particles are moving towards each other
+  if (glm::length(particle_dist) <=  other_particle.GetRadius()+radius_
+      && dot_product < 0) {
     return true;
   }
   return false;
 }
 
 glm::vec2 Particle::CalculateVelocity(const Particle& other) const {
+  // Using the particle collision equation:
+  // v1' = v1 - dotproduct((v1-v2),(x1-x2))/||x1-x2||^2 * (x1 - x2)
   glm::vec2 x2 = other.GetPosition();
-  glm::vec2 v2 = other.GetVelocity();
+  glm::vec2 velocity_diff = velocity_ - other.GetVelocity();
   glm::vec2 particle_dist = position_ - x2;
-  double dot_product = glm::dot(velocity_-v2, position_-x2);
+  double dot_product = glm::dot(velocity_diff, particle_dist);
   double denominator =
-      glm::pow(glm::length(position_ - x2), 2);
+      glm::pow(glm::length(particle_dist), 2);
   particle_dist *= dot_product / denominator;;
   glm::vec2 new_vel = velocity_ - particle_dist;
 
@@ -41,12 +46,13 @@ glm::vec2 Particle::CalculateVelocity(const Particle& other) const {
 
 void Particle::CalculateWallCollisionVelocity
     (size_t particle_box_size, size_t window_margin) {
-  if((position_.x + radius_ >= window_margin+ particle_box_size && velocity_.x > 0)
+  //Checking that the particle is touching the wall and moving towards each wall
+  if((position_.x + radius_ >= window_margin+ particle_box_size && velocity_.x > 0) // Left and right walls
      || (position_.x - radius_ <= window_margin && velocity_.x < 0)){
     velocity_.x *= -1;
   }
   if((position_.y - radius_ <= window_margin && velocity_.y < 0)
-     || (position_.y + radius_ >= window_margin+ particle_box_size && velocity_.y > 0)){
+     || (position_.y + radius_ >= window_margin+ particle_box_size && velocity_.y > 0)){ // top and bottom walls
     velocity_.y *= -1;
   }
 }
