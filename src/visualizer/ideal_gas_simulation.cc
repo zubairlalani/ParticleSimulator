@@ -22,7 +22,6 @@ void IdealGasSimulation::draw() {
       ci::Color("white"));
 
   particle_box_.Render();
-
 }
 
 void IdealGasSimulation::update() {

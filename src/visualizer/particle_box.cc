@@ -17,7 +17,7 @@ void ParticleBox::Render() {
   for(size_t x = 0; x < particles_.size(); x++) {
     particles_[x].UpdatePosition();
     ci::gl::color (75, 0, 130);
-    ci::gl::drawSolidCircle(particles_[x].GetPosition(), 5);
+    ci::gl::drawSolidCircle(particles_[x].GetPosition(), kParticleRadius);
   }
 }
 
@@ -25,7 +25,7 @@ void ParticleBox::UpdateParticleVelocities(size_t kMargin) {
   for(size_t x = 0; x < particles_.size(); x++) {
     particles_[x].CalculateWallCollisionVelocity(pixels_x_, kMargin);
 
-    for(size_t y = 1; y < particles_.size(); y++) {
+    for(size_t y = x; y < particles_.size(); y++) {
       // Makes sure that it doesn't check for a collision between a particle and itself
       if(particles_.size() > 1
          && particles_[x].GetPosition() != particles_[y].GetPosition()) {
@@ -41,7 +41,7 @@ void ParticleBox::UpdateParticleVelocities(size_t kMargin) {
 }
 
 void ParticleBox::AddParticle() {
-  particles_.emplace_back(Particle(10)); // For now set to radius 10 --> implement different sizes during week 2
+  particles_.emplace_back(Particle(kParticleRadius)); // For now set to radius 10 --> implement different sizes during week 2
 }
 
 void ParticleBox::Clear() {

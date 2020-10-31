@@ -15,11 +15,6 @@ class Particle {
   void UpdatePosition();
 
   /**
-   * Changes velocity_ when the Particle encounters a wall
-   */
-  void UpdateVelocity(bool x_or_y);
-
-  /**
    * Gets the x and y coordinates of the particle in the form of vec2
    * @return 2d (math) vector representing x and y coordinates of particle
    */
@@ -32,10 +27,23 @@ class Particle {
   glm::vec2 GetVelocity() const;
 
   /**
+   * Gets the radius of the particle as a size_t
+   * @return size_t radius of the particle
+   */
+  size_t GetRadius() const;
+
+  /**
+   * Sets position_ of particle to the given position (x and y coordinates)
+   * @param pos - location that the particle will be set to
+   */
+  void SetPosition(const glm::vec2& pos);
+
+  /**
    * Sets velocity_ to the given vec2 (x and y velocity components)
    * @param vel x and y components of velocity represented as a vec2
    */
   void SetVelocity(const glm::vec2& vel);
+
 
   glm::vec2 CalculateVelocity(const Particle& other_particle);
 
@@ -47,7 +55,7 @@ class Particle {
  private:
   glm::vec2 position_ = glm::vec2(60, 60); // Keeps track of x and y coordinates
   glm::vec2 velocity_ = glm::vec2(2, 1); // Keeps track of x and y components of velocity_
-  size_t radius_;
+  size_t radius_; // radius of a single circular particle
 
 
 };

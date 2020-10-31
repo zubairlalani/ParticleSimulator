@@ -17,7 +17,9 @@ class ParticleBox {
   void AddParticle();
   void Clear();
  private:
+
   const ci::Color kBoxColor = ci::Color::white();
+  const size_t kParticleRadius = 5;
   glm::vec2 upper_left_corner_;
   std::vector<Particle> particles_;
   size_t pixels_x_;

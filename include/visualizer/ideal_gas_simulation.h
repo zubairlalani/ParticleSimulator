@@ -29,13 +29,12 @@ class IdealGasSimulation : public ci::app::App {
    void draw() override;
    void keyDown(ci::app::KeyEvent event) override;
 
-  const double kWindowSize = 700;
-  const double kMargin = 50;
+ private:
+  const size_t kWindowSize = 700;
+  const size_t kMargin = 50;
   const size_t kParticleBoxSize = 400;
 
- private:
-  std::vector<idealgas::Particle> particles;
-  idealgas::ParticleBox particle_box_;
+  idealgas::ParticleBox particle_box_; // Box on screen that holds all particles
 };
 
 }  // namespace visualizer
