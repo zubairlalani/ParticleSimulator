@@ -32,10 +32,10 @@ TEST_CASE("Updating particle variables each frame works") {
     particleBox.AddParticle();
 
     for (size_t i = 0; i < 3; i++) {
-      particleBox.UpdateParticles(50);  // Move the first particle over a lot
-      particleBox.UpdateParticles(50);  // Move the first particle over a lot
-      particleBox.UpdateParticles(50);  // Move the first particle over a lot
-      particleBox.UpdateParticles(50);  // Move the first particle over a lot
+      particleBox.UpdateParticles(50);  // Move the two particles many times
+      particleBox.UpdateParticles(50);
+      particleBox.UpdateParticles(50);
+      particleBox.UpdateParticles(50);
     }
 
     // 5 particles over all
@@ -52,5 +52,51 @@ TEST_CASE("Updating particle variables each frame works") {
     REQUIRE(particleBox.GetParticles()[0].GetVelocity() == glm::vec2(-2, 1));
 
     // More wall collision tests and particle collision tests in particle class
+  }
+}
+
+TEST_CASE("Changing speeds of particles") {
+  idealgas::ParticleBox particleBox(glm::vec2(50, 50), 400, 400);
+  particleBox.AddParticle();
+  particleBox.UpdateParticles(50); // Create a particle and run two frames
+  particleBox.UpdateParticles(50);
+
+  particleBox.AddParticle();
+
+  SECTION("Speeding up particles") {
+    for (size_t i = 0; i < 3; i++) {
+      particleBox.UpdateParticles(50);  // Run a couple of frames of the simulation
+      particleBox.UpdateParticles(50);
+      particleBox.UpdateParticles(50);
+      particleBox.UpdateParticles(50);
+    }
+
+    particleBox.IncreaseDecreaseSpeed(1);
+    glm::vec2 test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(3.0f, 2.0f);
+    REQUIRE(fabs(test.x) < .00001f);
+    REQUIRE(fabs(test.y) < .00001f);
+
+    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(3.0f, 2.0f);
+    REQUIRE(fabs(test.x) < .00001f);
+    REQUIRE(fabs(test.y) < .00001f);
+  }
+
+  SECTION("Slow down particles") {
+    for (size_t i = 0; i < 3; i++) {
+      particleBox.UpdateParticles(50);  // Run a couple of frames of the simulation
+      particleBox.UpdateParticles(50);
+      particleBox.UpdateParticles(50);
+      particleBox.UpdateParticles(50);
+    }
+
+    particleBox.IncreaseDecreaseSpeed(-1);
+
+    glm::vec2 test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(1, 0);
+    REQUIRE(fabs(test.x) < .00001f);
+    REQUIRE(fabs(test.y) < .00001f);
+
+    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(1.0f, 0.0f);
+    REQUIRE(fabs(test.x) < .00001f);
+    REQUIRE(fabs(test.y) < .00001f);
   }
 }

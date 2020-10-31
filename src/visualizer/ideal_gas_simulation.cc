@@ -37,6 +37,14 @@ void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {
     case ci::app::KeyEvent::KEY_BACKSPACE:
       particle_box_.Clear();
       break;
+
+    case ci::app::KeyEvent::KEY_UP:
+      particle_box_.IncreaseDecreaseSpeed(kSpeedFactor);
+      break;
+
+    case ci::app::KeyEvent::KEY_DOWN:
+      particle_box_.IncreaseDecreaseSpeed(-1*kSpeedFactor);
+      break;
   }
 }
 }  // namespace visualizer

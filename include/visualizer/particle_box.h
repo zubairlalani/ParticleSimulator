@@ -54,6 +54,12 @@ class ParticleBox {
    */
   const std::vector<Particle> GetParticles();
 
+  /**
+   * Speeds up or slows down all particles on the screen
+   * @param speed_factor - how much the all the particles speed increases by
+   */
+  void IncreaseDecreaseSpeed(size_t speed_factor);
+
  private:
 
   const ci::Color kBoxColor = ci::Color::white(); // Color of particle box borders

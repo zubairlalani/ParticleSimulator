@@ -56,4 +56,26 @@ void ParticleBox::Clear() {
 const std::vector<Particle> ParticleBox::GetParticles() {
   return particles_;
 }
+
+void ParticleBox::IncreaseDecreaseSpeed(size_t speed_factor) {
+  for(auto & particle : particles_) {
+    int x_increment_value = speed_factor;
+    int y_increment_value = speed_factor;
+    if(particle.GetVelocity().x < 0){
+      x_increment_value*=-1;
+    }
+    if(particle.GetVelocity().y < 0) {
+      y_increment_value*=-1;
+    }
+
+    vec2 increment_vect = vec2(x_increment_value, y_increment_value);
+    vec2 new_velocity = increment_vect+particle.GetVelocity();
+
+    if(new_velocity.x * particle.GetVelocity().x >= 0
+        && new_velocity.y * particle.GetVelocity().y >= 0) { // Ensures that the direction doesn't reverse at low speeds
+      particle.SetVelocity(new_velocity);
+    }
+
+  }
+}
 } // namespace idealgas

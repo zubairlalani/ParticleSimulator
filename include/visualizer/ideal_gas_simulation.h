@@ -47,7 +47,8 @@ class IdealGasSimulation : public ci::app::App {
   const size_t kWindowSize = 700; // Size of the overall simulation window
   const size_t kMargin = 50; // Margins of the particle box from the simulation window
   const size_t kParticleBoxSize = 400; // Side length of the Particle Box
-
+  const size_t kSpeedFactor = 1; // How much speed of particles increases or
+                                 // decreases every time the up or down key is pressed
   idealgas::ParticleBox particle_box_; // Box on screen that holds all particles
 };
 }  // namespace visualizer
