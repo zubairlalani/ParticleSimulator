@@ -8,6 +8,7 @@ class Particle {
  public:
 
   Particle(size_t radius);
+
   /**
    * Updates position based on the velocity_ of the Particle
    * assuming that one unit of time has passed

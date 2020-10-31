@@ -21,11 +21,11 @@ void IdealGasSimulation::draw() {
       glm::vec2(kWindowSize / 2, kMargin / 2),
       ci::Color("white"));
 
-  particle_box_.Render();
+  particle_box_.RenderParticles();
 }
 
 void IdealGasSimulation::update() {
-  particle_box_.UpdateParticleVelocities(kMargin);
+  particle_box_.UpdateParticles(kMargin);
 }
 
 void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {

@@ -11,18 +11,18 @@ ParticleBox::ParticleBox(const glm::vec2 &upper_left_corner,
       pixels_x_(pixels_x),
       pixels_y_(pixels_y){}
 
-void ParticleBox::Render() {
+void ParticleBox::RenderParticles() {
   ci::gl::color(kBoxColor);
   ci::gl::drawStrokedRect(ci::Rectf(upper_left_corner_, upper_left_corner_ + ci::vec2(pixels_x_, pixels_y_)));
   for(size_t x = 0; x < particles_.size(); x++) {
-    particles_[x].UpdatePosition();
-    ci::gl::color (75, 0, 130);
+    ci::gl::color (kParticleColor); // Pink/Purplish color
     ci::gl::drawSolidCircle(particles_[x].GetPosition(), kParticleRadius);
   }
 }
 
-void ParticleBox::UpdateParticleVelocities(size_t kMargin) {
+void ParticleBox::UpdateParticles(size_t kMargin) {
   for(size_t x = 0; x < particles_.size(); x++) {
+    particles_[x].UpdatePosition();
     particles_[x].CalculateWallCollisionVelocity(pixels_x_, kMargin);
 
     for(size_t y = x; y < particles_.size(); y++) {
@@ -41,10 +41,15 @@ void ParticleBox::UpdateParticleVelocities(size_t kMargin) {
 }
 
 void ParticleBox::AddParticle() {
-  particles_.emplace_back(Particle(kParticleRadius)); // For now set to radius 10 --> implement different sizes during week 2
+  //TODO Add radius based on mass for week2
+  particles_.emplace_back(Particle(kParticleRadius));
 }
 
 void ParticleBox::Clear() {
   particles_.clear();
+}
+
+const std::vector<Particle> ParticleBox::GetParticles() {
+  return particles_;
 }
 }

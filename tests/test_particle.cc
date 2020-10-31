@@ -37,13 +37,13 @@ TEST_CASE("Determining whether there is a collision between two particles works"
     }
 
     SECTION("Less than 2 radius distance away in x direction") {
-      particle2.SetPosition(glm::vec2(70, 60)); // dist of only 10
+      particle2.SetPosition(glm::vec2(70, 60)); // Right of first particle
       particle2.SetVelocity(glm::vec2(-2, 1));
-      REQUIRE(particle.IsParticleCollision(particle2)); // Right
+      REQUIRE(particle.IsParticleCollision(particle2));
 
-      particle2.SetPosition(glm::vec2(50, 60));
+      particle2.SetPosition(glm::vec2(50, 60)); // Left of first particle
       particle2.SetVelocity(glm::vec2(3, 1));
-      REQUIRE(particle.IsParticleCollision(particle2)); // Left
+      REQUIRE(particle.IsParticleCollision(particle2));
 
     }
 
@@ -75,6 +75,16 @@ TEST_CASE("Determining whether there is a collision between two particles works"
 
     SECTION("Within collision range but not moving towards each other") {
       particle2.SetPosition(glm::vec2(60, 80));
+      REQUIRE_FALSE(particle.IsParticleCollision(particle2));
+
+      particle2.SetPosition(glm::vec2(50, 50));
+      particle2.SetVelocity(glm::vec2(-2, 1));
+      REQUIRE_FALSE(particle.IsParticleCollision(particle2));
+
+      particle2.SetVelocity(glm::vec2(0, 1));
+      REQUIRE_FALSE(particle.IsParticleCollision(particle2));
+
+      particle2.SetVelocity(glm::vec2(2, 1));
       REQUIRE_FALSE(particle.IsParticleCollision(particle2));
     }
   }
