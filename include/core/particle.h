@@ -4,9 +4,19 @@
 #include "cinder/gl/gl.h"
 
 namespace idealgas {
+
+/**
+ * A single particle within the simulation
+ * Contains methods to appropriately update the
+ * particle's velocity when collisions occur
+ */
 class Particle {
  public:
 
+  /**
+   * Initializes particle object with the specified radius
+   * @param radius - radius of the particle
+   */
   Particle(size_t radius);
 
   /**
@@ -45,12 +55,30 @@ class Particle {
    */
   void SetVelocity(const glm::vec2& vel);
 
+  /**
+   * Calculates the velocity of particle based
+   * on a collision with the given particle parameter
+   * @param other_particle - the second particle part of the collision
+   * @return calculated velocity as a vec2
+   *         (can only set velocity after the velocity
+   *          of the other particle is also calculated)
+   */
+  glm::vec2 CalculateVelocity(const Particle& other_particle) const;
 
-  glm::vec2 CalculateVelocity(const Particle& other_particle);
+  /**
+   * Calculates and updates velocity of a particle when
+   * it hits the wall of the particle box
+   * @param particle_box_size - side length of square box that holds all the particles
+   * @param window_margin - space between larger simulation screen and the the particle box
+   */
+  void CalculateWallCollisionVelocity(size_t particle_box_size, size_t window_margin);
 
-  void CalculateWallCollisionVelocity(size_t window_size, size_t window_margin);
-
-  bool IsParticleCollision(const Particle& other_particle);
+  /**
+   * Determines whether a particle is colliding with another given particle
+   * @param other_particle - second particle part of the collision
+   * @return true - if the particle is colliding with the given particle
+   */
+  bool IsParticleCollision(const Particle& other_particle) const;
 
 
  private:

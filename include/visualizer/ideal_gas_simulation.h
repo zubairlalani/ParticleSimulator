@@ -15,28 +15,40 @@ namespace idealgas {
 namespace visualizer {
 
 /**
- * Allows a user to draw a digit on a sketchpad and uses Naive Bayes to
- * classify it.
+ * Runs the whole simulation and contains all the different parts such the
+ * particle box and the three histograms
  */
 class IdealGasSimulation : public ci::app::App {
  public:
 
   /**
-   * Initializes sketchpad and model
+   * Initializes simulation screen and particle box
    */
    IdealGasSimulation();
+
+   /**
+    * Cinder method that runs each continuously
+    * Updates the simulation state (Each particle's position/velocity and the histograms)
+    */
    void update() override;
+
+   /**
+    * Draws everything on the simulation screen
+    */
    void draw() override;
+
+   /**
+    * Adds particles to the simulation or clears them all
+    * @param event - the action of pressing space or backspace
+    */
    void keyDown(ci::app::KeyEvent event) override;
 
  private:
-  const size_t kWindowSize = 700;
-  const size_t kMargin = 50;
-  const size_t kParticleBoxSize = 400;
+  const size_t kWindowSize = 700; // Size of the overall simulation window
+  const size_t kMargin = 50; // Margins of the particle box from the simulation window
+  const size_t kParticleBoxSize = 400; // Side length of the Particle Box
 
   idealgas::ParticleBox particle_box_; // Box on screen that holds all particles
 };
-
 }  // namespace visualizer
-
 }  // namespace idealgas

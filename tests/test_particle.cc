@@ -2,7 +2,6 @@
 #include "core/particle.h"
 
 TEST_CASE("Particle Constructor") {
-
   idealgas::Particle particle(10);
   REQUIRE(particle.GetRadius() == 10); // reasonable radius
 
