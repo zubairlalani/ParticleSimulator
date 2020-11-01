@@ -71,8 +71,14 @@ void ParticleBox::IncreaseDecreaseSpeed(size_t speed_factor) {
     vec2 increment_vect = vec2(x_increment_value, y_increment_value);
     vec2 new_velocity = increment_vect+particle.GetVelocity();
 
-    if(new_velocity.x * particle.GetVelocity().x >= 0
-        && new_velocity.y * particle.GetVelocity().y >= 0) { // Ensures that the direction doesn't reverse at low speeds
+    vec2 same_dir_test = vec2(new_velocity.x * particle.GetVelocity().x,
+                              new_velocity.y * particle.GetVelocity().y);
+
+    // Ensures that the direction doesn't reverse at low speeds
+    // one of the components of the new speed can reach zer
+    if((same_dir_test.x >= 0
+        && same_dir_test.y >= 0)
+        && !(same_dir_test.x == 0 && same_dir_test.y == 0)) {
       particle.SetVelocity(new_velocity);
     }
 

@@ -95,7 +95,21 @@ TEST_CASE("Changing speeds of particles") {
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
 
-    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(1.0f, 0.0f);
+    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(1, 0);
+    REQUIRE(fabs(test.x) < .00001f);
+    REQUIRE(fabs(test.y) < .00001f);
+
+    particleBox.IncreaseDecreaseSpeed(-1); // Decreasing to a speed that would change direction of particle
+
+    // Should just stay at the same speed, rather than changing
+    // direction when a component of velocity reaches 0
+
+    test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(1, 0);
+
+    REQUIRE(fabs(test.x) < .00001f);
+    REQUIRE(fabs(test.y) < .00001f);
+
+    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(1, 0);
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
   }
