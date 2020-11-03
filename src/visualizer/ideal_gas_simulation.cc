@@ -39,11 +39,11 @@ void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {
       break;
 
     case ci::app::KeyEvent::KEY_UP:
-      particle_box_.IncreaseDecreaseSpeed(kSpeedFactor);
+      particle_box_.IncreaseDecreaseSpeed(kSpeedUpFactor);
       break;
 
     case ci::app::KeyEvent::KEY_DOWN:
-      particle_box_.IncreaseDecreaseSpeed(-1*kSpeedFactor);
+      particle_box_.IncreaseDecreaseSpeed(kSlowDownFactor);
       break;
   }
 }

@@ -64,19 +64,13 @@ TEST_CASE("Changing speeds of particles") {
   particleBox.AddParticle();
 
   SECTION("Speeding up particles") {
-    for (size_t i = 0; i < 3; i++) {
-      particleBox.UpdateParticles(50);  // Run a couple of frames of the simulation
-      particleBox.UpdateParticles(50);
-      particleBox.UpdateParticles(50);
-      particleBox.UpdateParticles(50);
-    }
 
-    particleBox.IncreaseDecreaseSpeed(1);
-    glm::vec2 test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(3.0f, 2.0f);
+    particleBox.IncreaseDecreaseSpeed(2.0f);
+    glm::vec2 test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(4.0f, 2.0f);
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
 
-    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(3.0f, 2.0f);
+    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(4.0f, 2.0f);
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
   }
@@ -89,28 +83,26 @@ TEST_CASE("Changing speeds of particles") {
       particleBox.UpdateParticles(50);
     }
 
-    particleBox.IncreaseDecreaseSpeed(-1);
+    particleBox.IncreaseDecreaseSpeed(.9f);
 
-    glm::vec2 test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(1, 0);
+    glm::vec2 test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(1.8f, 0.9f);
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
 
-    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(1, 0);
+    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(1.8f, 0.9f);
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
 
-    particleBox.IncreaseDecreaseSpeed(-1); // Decreasing to a speed that would change direction of particle
-
-    // Should just stay at the same speed, rather than changing
-    // direction when a component of velocity reaches 0
-
-    test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(1, 0);
+    // Test with speed factor of 0
+    particleBox.IncreaseDecreaseSpeed(0);
+    test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(0, 0);
 
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
 
-    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(1, 0);
+    test = particleBox.GetParticles()[1].GetVelocity() - glm::vec2(0, 0);
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
   }
+
 }
