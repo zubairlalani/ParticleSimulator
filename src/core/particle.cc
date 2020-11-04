@@ -2,11 +2,12 @@
 
 namespace idealgas{
 
-Particle::Particle(size_t radius) {
+Particle::Particle(size_t radius, ci::Color color) {
   if(radius < 1) {
     throw std::invalid_argument("Not a valid radius");
   }
   radius_= radius;
+  color_ = color;
 }
 
 void Particle::UpdatePosition() {

@@ -67,6 +67,9 @@ class ParticleBox {
   const size_t kSmallParticleRadius = 5; // Radius that each particle will have --> update during week2
   const size_t kMedParticleRadius = 7;
   const size_t kLargeParticleRadius = 10;
+  const ci::Color kSmallColor = ci::Color(0, 0, 100); // Color of particle box borders
+  const ci::Color kMedColor = ci::Color(0, 100, 0); // Color of particle box borders
+  const ci::Color kLargeColor = ci::Color(100, 0, 0); // Color of particle box borders
   glm::vec2 upper_left_corner_; // Top left corner of the particle box
   std::vector<Particle> particles_; // List of all particles within the box currently
   size_t pixels_x_; // Amount of pixels horizontally that the box stretches over

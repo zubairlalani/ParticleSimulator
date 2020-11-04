@@ -17,7 +17,7 @@ class Particle {
    * Initializes particle object with the specified radius
    * @param radius - radius of the particle
    */
-  Particle(size_t radius);
+  Particle(size_t radius, ci::Color color);
 
   /**
    * Updates position based on the velocity_ of the Particle
@@ -85,7 +85,7 @@ class Particle {
   glm::vec2 position_ = glm::vec2(60, 60); // Keeps track of x and y coordinates
   glm::vec2 velocity_ = glm::vec2(2, 1); // Keeps track of x and y components of velocity_
   size_t radius_; // radius of a single circular particle
-
+  ci::Color color_;
 
 };
 } // namespace idealgas

@@ -18,12 +18,14 @@ void ParticleBox::RenderParticles() {
 
   // Draws all particles onto screen
   for(auto & particle : particles_) {
-    ci::gl::color (kParticleColor); // Pink/Purplish color
     if(particle.GetRadius() == kSmallParticleRadius) {
+      ci::gl::color (kSmallColor); // Blueish
       ci::gl::drawSolidCircle(particle.GetPosition(), kSmallParticleRadius);
     } else if(particle.GetRadius() == kMedParticleRadius) {
+      ci::gl::color (kMedColor); // Greenish
       ci::gl::drawSolidCircle(particle.GetPosition(), kMedParticleRadius);
     } else {
+      ci::gl::color (kLargeColor); // Reddish
       ci::gl::drawSolidCircle(particle.GetPosition(), kLargeParticleRadius);
     }
   }
@@ -52,11 +54,11 @@ void ParticleBox::UpdateParticles(size_t kMargin) {
 
 void ParticleBox::AddParticle(size_t id) {
   if(id == 0)
-    particles_.emplace_back(Particle(kSmallParticleRadius));
+    particles_.emplace_back(Particle(kSmallParticleRadius, kSmallColor));
   else if (id == 1) {
-    particles_.emplace_back(Particle(kMedParticleRadius));
+    particles_.emplace_back(Particle(kMedParticleRadius, kMedColor));
   } else {
-    particles_.emplace_back(Particle(kLargeParticleRadius));
+    particles_.emplace_back(Particle(kLargeParticleRadius, kLargeColor));
   }
 }
 
