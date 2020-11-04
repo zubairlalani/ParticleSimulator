@@ -4,7 +4,9 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "core/particle.h"
+#include "cinder/params/Params.h"
 #include "visualizer/particle_box.h"
+#include "cinder/Camera.h"
 #include <string>
 #include <vector>
 
@@ -43,6 +45,10 @@ class IdealGasSimulation : public ci::app::App {
     */
    void keyDown(ci::app::KeyEvent event) override;
 
+   void button(size_t id);
+
+   void setup() override;
+
  private:
   const size_t kWindowSize = 700; // Size of the overall simulation window
   const size_t kMargin = 50; // Margins of the particle box from the simulation window
@@ -50,6 +56,7 @@ class IdealGasSimulation : public ci::app::App {
   const float kSpeedUpFactor = 1.1f; // How much speed of particles increases for every up key
   const float kSlowDownFactor = .9f; // How much speed decreases for every down key is pressed
   idealgas::ParticleBox particle_box_; // Box on screen that holds all particles
+  ci::params::InterfaceGlRef mParams;
 };
 }  // namespace visualizer
 }  // namespace idealgas

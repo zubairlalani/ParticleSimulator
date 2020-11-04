@@ -41,7 +41,7 @@ class ParticleBox {
   /**
    * Adds a particle to the particle_box/simulation
    */
-  void AddParticle();
+  void AddParticle(size_t id);
 
   /**
    * Clears all the particles from the box
@@ -64,7 +64,9 @@ class ParticleBox {
 
   const ci::Color kBoxColor = ci::Color::white(); // Color of particle box borders
   const ci::Color kParticleColor = ci::Color(75, 0, 130); // Color of all the particles
-  const size_t kParticleRadius = 5; // Radius that each particle will have --> update during week2
+  const size_t kSmallParticleRadius = 5; // Radius that each particle will have --> update during week2
+  const size_t kMedParticleRadius = 7;
+  const size_t kLargeParticleRadius = 10;
   glm::vec2 upper_left_corner_; // Top left corner of the particle box
   std::vector<Particle> particles_; // List of all particles within the box currently
   size_t pixels_x_; // Amount of pixels horizontally that the box stretches over

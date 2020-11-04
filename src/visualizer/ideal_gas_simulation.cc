@@ -13,6 +13,15 @@ IdealGasSimulation::IdealGasSimulation()
   ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
+void IdealGasSimulation::setup() {
+  mParams = ci::params::InterfaceGl::create( getWindow(), "App parameters", getWindow()->toPixels( ci::ivec2( 200, 200 ) ) );
+  //mParams->addButton("Large Particle", std::bind(&IdealGasSimulation::button(), this));
+  //mParams->addButton("Small Particle", std::bind(&IdealGasSimulation::button(), this));
+  mParams->addButton("Small Particle", [ & ]() { button( 0 ); });
+  mParams->addButton("Medium Particle", [ & ]() { button( 1 ); });
+  mParams->addButton("Large Particle", [ & ]() { button( 2 ); });
+}
+
 void IdealGasSimulation::draw() {
   ci::Color8u background_color(0, 0, 0);
   ci::gl::clear(background_color);
@@ -22,6 +31,8 @@ void IdealGasSimulation::draw() {
       ci::Color("white")); // Creates title at the top of the screen
 
   particle_box_.RenderParticles();
+
+  mParams->draw();
 }
 
 void IdealGasSimulation::update() {
@@ -31,7 +42,15 @@ void IdealGasSimulation::update() {
 void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {
   switch (event.getCode()) {
     case ci::app::KeyEvent::KEY_SPACE:
-      particle_box_.AddParticle();
+      particle_box_.AddParticle(0);
+      break;
+
+    case ci::app::KeyEvent::KEY_1:
+      particle_box_.AddParticle(1);
+      break;
+
+    case ci::app::KeyEvent::KEY_2:
+      particle_box_.AddParticle(2);
       break;
 
     case ci::app::KeyEvent::KEY_BACKSPACE:
@@ -46,6 +65,10 @@ void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {
       particle_box_.IncreaseDecreaseSpeed(kSlowDownFactor);
       break;
   }
+}
+
+void IdealGasSimulation::button(size_t id) {
+  particle_box_.AddParticle(id);
 }
 }  // namespace visualizer
 }  // namespace idealgas

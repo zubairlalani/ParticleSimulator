@@ -19,7 +19,13 @@ void ParticleBox::RenderParticles() {
   // Draws all particles onto screen
   for(auto & particle : particles_) {
     ci::gl::color (kParticleColor); // Pink/Purplish color
-    ci::gl::drawSolidCircle(particle.GetPosition(), kParticleRadius);
+    if(particle.GetRadius() == kSmallParticleRadius) {
+      ci::gl::drawSolidCircle(particle.GetPosition(), kSmallParticleRadius);
+    } else if(particle.GetRadius() == kMedParticleRadius) {
+      ci::gl::drawSolidCircle(particle.GetPosition(), kMedParticleRadius);
+    } else {
+      ci::gl::drawSolidCircle(particle.GetPosition(), kLargeParticleRadius);
+    }
   }
 }
 
@@ -44,9 +50,14 @@ void ParticleBox::UpdateParticles(size_t kMargin) {
   }
 }
 
-void ParticleBox::AddParticle() {
-  //TODO Add radius based on mass for week2
-  particles_.emplace_back(Particle(kParticleRadius));
+void ParticleBox::AddParticle(size_t id) {
+  if(id == 0)
+    particles_.emplace_back(Particle(kSmallParticleRadius));
+  else if (id == 1) {
+    particles_.emplace_back(Particle(kMedParticleRadius));
+  } else {
+    particles_.emplace_back(Particle(kLargeParticleRadius));
+  }
 }
 
 void ParticleBox::Clear() {
