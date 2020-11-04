@@ -2,12 +2,12 @@
 
 namespace idealgas{
 
-Particle::Particle(size_t radius, ci::Color color) {
+Particle::Particle(size_t radius, float mass) {
   if(radius < 1) {
     throw std::invalid_argument("Not a valid radius");
   }
   radius_= radius;
-  color_ = color;
+  mass_ = mass;
 }
 
 void Particle::UpdatePosition() {
@@ -31,6 +31,10 @@ bool Particle::IsParticleCollision(const Particle& other_particle) const {
 glm::vec2 Particle::CalculateVelocity(const Particle& other) const {
   // Using the particle collision equation:
   // v1' = v1 - dotproduct((v1-v2),(x1-x2))/||x1-x2||^2 * (x1 - x2)
+
+  float m2 = other.GetMass();
+  float mass_calc = 2*m2 / (mass_ + m2);
+
   glm::vec2 x2 = other.GetPosition();
   glm::vec2 velocity_diff = velocity_ - other.GetVelocity();
   glm::vec2 particle_dist = position_ - x2;
@@ -38,7 +42,7 @@ glm::vec2 Particle::CalculateVelocity(const Particle& other) const {
   double denominator =
       glm::pow(glm::length(particle_dist), 2);
   particle_dist *= dot_product / denominator;;
-  glm::vec2 new_vel = velocity_ - particle_dist;
+  glm::vec2 new_vel = velocity_ - mass_calc*particle_dist;
 
   // Can't set new velocity here - need to first calculate the new velocity
   // for the other particle using the original velocity of this particle
@@ -68,6 +72,10 @@ glm::vec2 Particle::GetVelocity() const {
 
 size_t Particle::GetRadius() const {
   return radius_;
+}
+
+float Particle::GetMass() const {
+  return mass_;
 }
 
 void Particle::SetPosition(const glm::vec2& pos) {

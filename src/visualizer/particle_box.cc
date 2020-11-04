@@ -54,11 +54,11 @@ void ParticleBox::UpdateParticles(size_t kMargin) {
 
 void ParticleBox::AddParticle(size_t id) {
   if(id == 0)
-    particles_.emplace_back(Particle(kSmallParticleRadius, kSmallColor));
+    particles_.emplace_back(Particle(kSmallParticleRadius, kSmallMass));
   else if (id == 1) {
-    particles_.emplace_back(Particle(kMedParticleRadius, kMedColor));
+    particles_.emplace_back(Particle(kMedParticleRadius, kMedMass));
   } else {
-    particles_.emplace_back(Particle(kLargeParticleRadius, kLargeColor));
+    particles_.emplace_back(Particle(kLargeParticleRadius, kLargeMass));
   }
 }
 

@@ -17,7 +17,7 @@ class Particle {
    * Initializes particle object with the specified radius
    * @param radius - radius of the particle
    */
-  Particle(size_t radius, ci::Color color);
+  Particle(size_t radius, float mass);
 
   /**
    * Updates position based on the velocity_ of the Particle
@@ -42,6 +42,12 @@ class Particle {
    * @return size_t radius of the particle
    */
   size_t GetRadius() const;
+
+  /**
+   * Gets the mass of the particle
+   * @return double value that represents the mass of the particle
+   */
+  float GetMass() const;
 
   /**
    * Sets position_ of particle to the given position (x and y coordinates)
@@ -80,12 +86,11 @@ class Particle {
    */
   bool IsParticleCollision(const Particle& other_particle) const;
 
-
  private:
   glm::vec2 position_ = glm::vec2(60, 60); // Keeps track of x and y coordinates
   glm::vec2 velocity_ = glm::vec2(2, 1); // Keeps track of x and y components of velocity_
   size_t radius_; // radius of a single circular particle
-  ci::Color color_;
+  float mass_; // mass of the particle - used for particle collision calculations
 
 };
 } // namespace idealgas
