@@ -2,14 +2,14 @@
 #include "core/particle.h"
 
 TEST_CASE("Particle Constructor") {
-  idealgas::Particle particle(10);
+  idealgas::Particle particle(10, 2);
   REQUIRE(particle.GetRadius() == 10); // reasonable radius
 
-  REQUIRE_THROWS_AS(idealgas::Particle(0), std::invalid_argument); // invalid radius
+  REQUIRE_THROWS_AS(idealgas::Particle(0, 3), std::invalid_argument); // invalid radius
 }
 
 TEST_CASE("Update position") {
-  idealgas::Particle particle(10);
+  idealgas::Particle particle(10, 3);
   // Make sure initial position and initial velocity is correct
   REQUIRE(particle.GetPosition() == glm::vec2(60, 60)); // (60, 60) is the spawn pt of all particles
   REQUIRE(particle.GetVelocity() == glm::vec2(2, 1)); // initial vel is <2,1> for all particles
@@ -21,8 +21,8 @@ TEST_CASE("Update position") {
 
 TEST_CASE("Determining whether there is a collision between two particles works") {
   SECTION("Same sized particles") {
-    idealgas::Particle particle(10);
-    idealgas::Particle particle2(10);
+    idealgas::Particle particle(10, 5);
+    idealgas::Particle particle2(10, 7);
 
     SECTION("Exactly 2 radius distance away in x direction") {
       particle2.SetPosition(glm::vec2(80, 60));
@@ -94,8 +94,8 @@ TEST_CASE("Determining whether there is a collision between two particles works"
 
 TEST_CASE("Velocities after particle collision") {
   SECTION("Horizontal collision") {
-    idealgas::Particle particle(10);
-    idealgas::Particle particle2(10);
+    idealgas::Particle particle(10, 5);
+    idealgas::Particle particle2(10,  5);
     particle2.SetPosition(glm::vec2(80, 60));
     particle2.SetVelocity(
         glm::vec2(-2, 1));  // Makes sure particles are going towards each other
@@ -107,8 +107,8 @@ TEST_CASE("Velocities after particle collision") {
   }
 
   SECTION("Diagonal collision") {
-    idealgas::Particle particle(1);
-    idealgas::Particle particle2(1);
+    idealgas::Particle particle(1, 5);
+    idealgas::Particle particle2(1, 5);
     particle.SetPosition(glm::vec2(20, 20));
     particle.SetVelocity(glm::vec2(0.1, 0));
     particle2.SetPosition(glm::vec2(21.4, 21.4));
@@ -127,7 +127,7 @@ TEST_CASE("Velocities after particle collision") {
 }
 
 TEST_CASE("Velocities after wall collision") {
-  idealgas::Particle particle(5);
+  idealgas::Particle particle(5, 1);
   SECTION("Right wall") {
     //Particle in range of right wall and moving towards right wall
     particle.SetPosition(glm::vec2(445, 355));

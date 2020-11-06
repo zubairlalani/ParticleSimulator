@@ -65,7 +65,6 @@ class ParticleBox {
   const static size_t kLargeParticleRadius = 10; // Radius of large particles
 
  private:
-
   const ci::Color kBoxColor = ci::Color::white(); // Color of particle box borders
   //const ci::Color kParticleColor = ci::Color(75, 0, 130); // Color of all the particles
   const ci::Color kSmallColor = ci::Color(0, 0, 100); // Color of particle box borders
@@ -79,6 +78,7 @@ class ParticleBox {
   size_t pixels_x_; // Amount of pixels horizontally that the box stretches over
   size_t pixels_y_; // Amount of pixels vertically that the box stretches over
 };
+
 } // namespace idealgas
 
 #endif  // IDEAL_GAS_PARTICLE_BOX_H

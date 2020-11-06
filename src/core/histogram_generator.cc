@@ -16,13 +16,28 @@ void HistogramGenerator::RenderHistograms() {
   ci::gl::drawStrokedRect(ci::Rectf(
       upper_left_corner_, upper_left_corner_ + ci::vec2(pixels_x_, pixels_y_)));
 
+  ci::gl::drawStringCentered(
+      "Speed",
+      upper_left_corner_+glm::vec2(pixels_x_/2, pixels_y_+20),
+      ci::Color("white"));
+
   ci::gl::color(0, 100, 0);
   ci::gl::drawStrokedRect(ci::Rectf(
       upper_left_corner_ + glm::vec2(0, 200), upper_left_corner_ + ci::vec2(pixels_x_, 200 + pixels_y_)));
 
+  ci::gl::drawStringCentered(
+      "Speed",
+      upper_left_corner_+glm::vec2(pixels_x_/2, pixels_y_+220),
+      ci::Color("white"));
+
   ci::gl::color(100, 0, 0);
   ci::gl::drawStrokedRect(ci::Rectf(
       upper_left_corner_ + glm::vec2(0, 400), upper_left_corner_ + ci::vec2(pixels_x_, 400 + pixels_y_)));
+
+  ci::gl::drawStringCentered(
+      "Speed",
+      upper_left_corner_+glm::vec2(pixels_x_/2, pixels_y_+420),
+      ci::Color("white"));
 
   ci::gl::color(0, 0, 100);
   ci::vec2 topLeft(upper_left_corner_ + ci::vec2(0, pixels_y_));
