@@ -9,14 +9,20 @@ IdealGasSimulation::IdealGasSimulation()
           glm::vec2(kMargin,kMargin),
           kParticleBoxSize,
           kParticleBoxSize
+          ),
+      histogram_generator_(
+          glm::vec2(500, kMargin),
+          kHistogramSize,
+          kHistogramSize
           ){
   ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
 void IdealGasSimulation::setup() {
-  mParams = ci::params::InterfaceGl::create( getWindow(), "App parameters", getWindow()->toPixels( ci::ivec2( 200, 200 ) ) );
-  //mParams->addButton("Large Particle", std::bind(&IdealGasSimulation::button(), this));
-  //mParams->addButton("Small Particle", std::bind(&IdealGasSimulation::button(), this));
+  mParams = ci::params::InterfaceGl::create(
+      getWindow(), "App parameters",
+      getWindow()->toPixels( ci::ivec2( 200, 200 ) )
+      );
   mParams->addButton("Small Particle", [ & ]() { button( 0 ); });
   mParams->addButton("Medium Particle", [ & ]() { button( 1 ); });
   mParams->addButton("Large Particle", [ & ]() { button( 2 ); });
@@ -31,12 +37,14 @@ void IdealGasSimulation::draw() {
       ci::Color("white")); // Creates title at the top of the screen
 
   particle_box_.RenderParticles();
+  histogram_generator_.RenderHistograms();
 
   mParams->draw();
 }
 
 void IdealGasSimulation::update() {
   particle_box_.UpdateParticles(kMargin);
+  histogram_generator_.UpdateHistograms(particle_box_.GetParticles());
 }
 
 void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {

@@ -60,19 +60,20 @@ class ParticleBox {
    */
   void IncreaseDecreaseSpeed(float speed_factor);
 
+  const static size_t kSmallParticleRadius = 5; // Radius that all small particles have
+  const static size_t kMedParticleRadius = 7; // Radius of medium sized particles
+  const static size_t kLargeParticleRadius = 10; // Radius of large particles
+
  private:
 
   const ci::Color kBoxColor = ci::Color::white(); // Color of particle box borders
-  const ci::Color kParticleColor = ci::Color(75, 0, 130); // Color of all the particles
-  const size_t kSmallParticleRadius = 5; // Radius that each particle will have --> update during week2
-  const size_t kMedParticleRadius = 7;
-  const size_t kLargeParticleRadius = 10;
+  //const ci::Color kParticleColor = ci::Color(75, 0, 130); // Color of all the particles
   const ci::Color kSmallColor = ci::Color(0, 0, 100); // Color of particle box borders
   const ci::Color kMedColor = ci::Color(0, 100, 0); // Color of particle box borders
   const ci::Color kLargeColor = ci::Color(100, 0, 0); // Color of particle box borders
-  const float kSmallMass = 1;
-  const float kMedMass = 5;
-  const float kLargeMass = 10;
+  const float kSmallMass = 1; // mass of the smallest particle
+  const float kMedMass = 5; // mass of the medium sized particle
+  const float kLargeMass = 10; // mass of the largest particle
   glm::vec2 upper_left_corner_; // Top left corner of the particle box
   std::vector<Particle> particles_; // List of all particles within the box currently
   size_t pixels_x_; // Amount of pixels horizontally that the box stretches over
