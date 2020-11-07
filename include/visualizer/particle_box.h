@@ -5,7 +5,9 @@
 #include <core/particle.h>
 
 namespace idealgas {
-
+const ci::Color kSmallColor = ci::Color(0, 0, 100); // Color of particle box borders
+const ci::Color kMedColor = ci::Color(0, 100, 0); // Color of particle box borders
+const ci::Color kLargeColor = ci::Color(100, 0, 0); // Color of particle box borders
 /**
  * Draws/Contains all particles and makes sure that each particle's
  * position and velocity is updated each frame
@@ -64,12 +66,13 @@ class ParticleBox {
   const static size_t kMedParticleRadius = 7; // Radius of medium sized particles
   const static size_t kLargeParticleRadius = 10; // Radius of large particles
 
- private:
-  const ci::Color kBoxColor = ci::Color::white(); // Color of particle box borders
-  //const ci::Color kParticleColor = ci::Color(75, 0, 130); // Color of all the particles
   const ci::Color kSmallColor = ci::Color(0, 0, 100); // Color of particle box borders
   const ci::Color kMedColor = ci::Color(0, 100, 0); // Color of particle box borders
   const ci::Color kLargeColor = ci::Color(100, 0, 0); // Color of particle box borders
+ private:
+  const ci::Color kBoxColor = ci::Color::white(); // Color of particle box borders
+  //const ci::Color kParticleColor = ci::Color(75, 0, 130); // Color of all the particles
+
   const float kSmallMass = 1; // mass of the smallest particle
   const float kMedMass = 5; // mass of the medium sized particle
   const float kLargeMass = 10; // mass of the largest particle

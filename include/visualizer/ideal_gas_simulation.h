@@ -1,15 +1,16 @@
 #pragma once
 
+#include <string>
+#include <vector>
+
+#include "cinder/Camera.h"
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
-#include "core/particle.h"
 #include "cinder/params/Params.h"
+#include "core/histogram_manager.h"
+#include "core/particle.h"
 #include "visualizer/particle_box.h"
-#include "core/histogram_generator.h"
-#include "cinder/Camera.h"
-#include <string>
-#include <vector>
 
 using std::vector;
 
@@ -53,8 +54,9 @@ class IdealGasSimulation : public ci::app::App {
  private:
   const size_t kWindowSize = 700; // Size of the overall simulation window
   const size_t kMargin = 50; // Margins of the particle box from the simulation window
+  const size_t kLeftHistogramMargin = 550; // Distance from left that the histogram starts
   const size_t kParticleBoxSize = 400; // Side length of the Particle Box
-  const size_t kHistogramSize = 100;
+  const size_t kHistogramSize = 100; // Size of a single histogram button
   const float kSpeedUpFactor = 1.1f; // How much speed of particles increases for every up key
   const float kSlowDownFactor = .9f; // How much speed decreases for every down key is pressed
   idealgas::ParticleBox particle_box_; // Box on screen that holds all particles

@@ -59,14 +59,14 @@ list(APPEND TEST_FILES tests/test_particle.cc tests/test_particle_box.cc)
 ci_make_app(
         APP_NAME        ideal-gas-simulation
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES} src/core/particle.cc include/core/particle.h src/core/histogram_generator.cc include/core/histogram_generator.h
+        SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES} src/core/particle.cc include/core/particle.h src/core/histogram_manager.cc include/core/histogram_manager.h
         INCLUDES        include
 )
 
 ci_make_app(
         APP_NAME        ideal-gas-test
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         tests/test_main.cc ${CORE_SOURCE_FILES} src/core/particle.cc include/core/particle.h src/visualizer/particle_box.cc include/visualizer/particle_box.h src/core/histogram_generator.cc include/core/histogram_generator.h ${TEST_FILES}
+        SOURCES         tests/test_main.cc ${CORE_SOURCE_FILES} src/core/particle.cc include/core/particle.h src/visualizer/particle_box.cc include/visualizer/particle_box.h src/core/histogram_manager.cc include/core/histogram_manager.h ${TEST_FILES}
         INCLUDES        include
         LIBRARIES       catch2
 )

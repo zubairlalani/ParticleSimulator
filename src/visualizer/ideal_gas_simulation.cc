@@ -11,7 +11,7 @@ IdealGasSimulation::IdealGasSimulation()
           kParticleBoxSize
           ),
       histogram_generator_(
-          glm::vec2(500, kMargin),
+          glm::vec2(kLeftHistogramMargin, kMargin),
           kHistogramSize,
           kHistogramSize
           ){
@@ -21,11 +21,15 @@ IdealGasSimulation::IdealGasSimulation()
 void IdealGasSimulation::setup() {
   mParams = ci::params::InterfaceGl::create(
       getWindow(), "App parameters",
-      getWindow()->toPixels( ci::ivec2( 200, 200 ) )
+      getWindow()->toPixels( ci::ivec2( 400, 120 ) )
       );
+  mParams->setPosition(glm::vec2(50, 500));
   mParams->addButton("Small Particle", [ & ]() { button( 0 ); });
   mParams->addButton("Medium Particle", [ & ]() { button( 1 ); });
   mParams->addButton("Large Particle", [ & ]() { button( 2 ); });
+  mParams->addButton("Increase Speed", [ & ]() { button( 3 ); });
+  mParams->addButton("Decrease Speed", [ & ]() { button( 4 ); });
+  mParams->addButton("Clear", [ & ]() { button( 5 ); });
 }
 
 void IdealGasSimulation::draw() {
@@ -76,7 +80,15 @@ void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {
 }
 
 void IdealGasSimulation::button(size_t id) {
-  particle_box_.AddParticle(id);
+  if(id < 3) {
+    particle_box_.AddParticle(id);
+  } else if(id == 3) {
+    particle_box_.IncreaseDecreaseSpeed(kSpeedUpFactor);
+  } else if(id == 4) {
+    particle_box_.IncreaseDecreaseSpeed(kSlowDownFactor);
+  } else {
+    particle_box_.Clear();
+  }
 }
 }  // namespace visualizer
 }  // namespace idealgas

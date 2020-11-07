@@ -1,5 +1,5 @@
-#ifndef IDEAL_GAS_HISTOGRAM_GENERATOR_H
-#define IDEAL_GAS_HISTOGRAM_GENERATOR_H
+#ifndef IDEAL_GAS_HISTOGRAM_MANAGER_H
+#define IDEAL_GAS_HISTOGRAM_MANAGER_H
 
 #include "core/particle.h"
 #include "map"
@@ -20,16 +20,24 @@ class HistogramGenerator {
             size_t pixels_x,
             size_t pixels_y);
 
-  void AddToFrequency();
-
-  map<Particle, size_t> GetSpeedFrequency();
-
   void RenderHistograms();
 
   void UpdateHistograms(const vector<Particle>& particles_);
 
 
  private:
+
+  const int kYLabelMargin = 35;
+  void DrawSmallHistRects();
+  void DrawMedHistRects();
+  void DrawLargeHistRects();
+  void DrawSmallHistogram();
+  void DrawMedHistogram();
+  void DrawLargeHistogram();
+  void AddToFrequencyMap(float speed);
+
+  void ClearFrequencyMaps();
+
   map<float, size_t> small_speed_frequency_; // Maps each speed of a type of particle to the amount of particles that have that speed
   map<float, size_t> med_speed_frequency_;
   map<float, size_t> large_speed_frequency_;
@@ -41,4 +49,4 @@ class HistogramGenerator {
 };
 } // namespace idealgas
 
-#endif  // IDEAL_GAS_HISTOGRAM_GENERATOR_H
+#endif  // IDEAL_GAS_HISTOGRAM_MANAGER_H
