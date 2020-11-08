@@ -11,9 +11,7 @@ IdealGasSimulation::IdealGasSimulation()
           kParticleBoxSize
           ),
       histogram_generator_(
-          glm::vec2(kLeftHistogramMargin, kMargin),
-          kHistogramSize,
-          kHistogramSize
+          glm::vec2(kLeftHistogramMargin, kMargin)
           ){
   ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }

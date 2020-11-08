@@ -2,52 +2,55 @@
 #define IDEAL_GAS_HISTOGRAM_MANAGER_H
 
 #include "core/particle.h"
+#include "core/histogram.h"
 #include "map"
 #include <math.h>
 
-using std::map;
-using std::vector;
 
 namespace idealgas {
+using std::map;
+using std::vector;
+using glm::vec2;
 
 /**
- * A single Histogram that keeps track of the frequency
- * of particles with each speed for a type of particle
+ * Handles all the different histograms that are a part of the simulation
+ * Draws, Updates, and Clears them as appropriate
  */
-class HistogramGenerator {
+class HistogramManager {
  public:
-  HistogramGenerator(const glm::vec2 &upper_left_corner,
-            size_t pixels_x,
-            size_t pixels_y);
 
+  /**
+   * Initializes the three different histograms
+   * @param upper_left_corner - holds the location of the upper left corner of
+   *                            where the first histogram should be drawn
+   */
+  HistogramManager(const glm::vec2 &upper_left_corner);
+
+  /**
+   * Draws all histograms
+   */
   void RenderHistograms();
 
+  /**
+   * Updates all the histograms' data by going through each particle and checking their speed
+   * and then adding to the respective frequencies depending on the size of each particle
+   * @param particles_ - list of all particles currently in the simulation
+   */
   void UpdateHistograms(const vector<Particle>& particles_);
-
 
  private:
 
-  const int kYLabelMargin = 35;
-  const size_t kXLabelMargin = 20;
-  const size_t kHistogramDist = 200;
-  const int kRectangleWidth = 5;
-  const size_t kRectMultiplier = 10;
+  const size_t kHistogramDist = 200; // Vertical distance between each histogram on the screen
+  const size_t kHistogramSize = 100; // Size of a single Histogram (side length of square)
 
-  void DrawSmallHistRects();
-  void DrawMedHistRects();
-  void DrawLargeHistRects();
-  void DrawSmallHistogram();
-  void DrawMedHistogram();
-  void DrawLargeHistogram();
-  void ClearFrequencyMaps();
+  /**
+   * Resets all histograms on the screen to their original state with no bars
+   */
+  void ClearHistograms();
 
-  map<float, size_t> small_speed_frequency_; // Maps each speed of a type of particle to the amount of particles that have that speed
-  map<float, size_t> med_speed_frequency_;
-  map<float, size_t> large_speed_frequency_;
-  glm::vec2 upper_left_corner_; // Top left corner of the particle box
-  std::vector<Particle> particles_; // List of all particles within the box currently
-  size_t pixels_x_; // Amount of pixels horizontally that the box stretches over
-  size_t pixels_y_; // Amount of pixels vertically that the box stretches over
+  Histogram small_histogram_; // Histogram representing speeds/frequencies of small particles
+  Histogram med_histogram_; // Histogram representing speeds/frequencies of medium sized particles
+  Histogram large_histogram_; // Histogram representing speeds/frequencies of large particles
 
 };
 } // namespace idealgas

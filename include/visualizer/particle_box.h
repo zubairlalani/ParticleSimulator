@@ -8,6 +8,7 @@ namespace idealgas {
 const ci::Color kSmallColor = ci::Color(0, 0, 100); // Color of particle box borders
 const ci::Color kMedColor = ci::Color(0, 100, 0); // Color of particle box borders
 const ci::Color kLargeColor = ci::Color(100, 0, 0); // Color of particle box borders
+
 /**
  * Draws/Contains all particles and makes sure that each particle's
  * position and velocity is updated each frame

@@ -59,7 +59,7 @@ list(APPEND TEST_FILES tests/test_particle.cc tests/test_particle_box.cc)
 ci_make_app(
         APP_NAME        ideal-gas-simulation
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES} src/core/particle.cc include/core/particle.h src/core/histogram_manager.cc include/core/histogram_manager.h src/core/histogram_manager.cc include/core/histogram.h
+        SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES} src/core/particle.cc include/core/particle.h src/core/histogram_manager.cc include/core/histogram_manager.h src/core/histogram.cc include/core/histogram.h
         INCLUDES        include
 )
 
