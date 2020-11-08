@@ -11,7 +11,7 @@ using std::vector;
 namespace idealgas {
 
 /**
- * A single histogram that keeps track of the frequency
+ * A single Histogram that keeps track of the frequency
  * of particles with each speed for a type of particle
  */
 class HistogramGenerator {
@@ -28,14 +28,17 @@ class HistogramGenerator {
  private:
 
   const int kYLabelMargin = 35;
+  const size_t kXLabelMargin = 20;
+  const size_t kHistogramDist = 200;
+  const int kRectangleWidth = 5;
+  const size_t kRectMultiplier = 10;
+
   void DrawSmallHistRects();
   void DrawMedHistRects();
   void DrawLargeHistRects();
   void DrawSmallHistogram();
   void DrawMedHistogram();
   void DrawLargeHistogram();
-  void AddToFrequencyMap(float speed);
-
   void ClearFrequencyMaps();
 
   map<float, size_t> small_speed_frequency_; // Maps each speed of a type of particle to the amount of particles that have that speed

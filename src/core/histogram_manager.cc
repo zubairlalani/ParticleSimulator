@@ -12,8 +12,6 @@ HistogramGenerator::HistogramGenerator(const glm::vec2 &upper_left_corner,
       pixels_y_(pixels_y) {}
 
 void HistogramGenerator::RenderHistograms() {
-  //TODO: Fix magic numbers and modularize
-
   DrawSmallHistogram();
   DrawMedHistogram();
   DrawLargeHistogram();
@@ -22,7 +20,7 @@ void HistogramGenerator::RenderHistograms() {
 
 void HistogramGenerator::UpdateHistograms(const vector<Particle>& particles) {
   for(size_t i = 0; i < particles.size(); i++) {
-    float speed = roundf(glm::length(particles[i].GetVelocity()) * 10) / 10;
+    float speed = roundf(glm::length(particles[i].GetVelocity()) * 10) / 10; //Rounding to the tenth
 
     if(particles[i].GetRadius() == idealgas::ParticleBox::kSmallParticleRadius) {
       if(small_speed_frequency_.find(speed)== small_speed_frequency_.end()) {
@@ -52,28 +50,37 @@ void HistogramGenerator::DrawSmallHistRects() {
   ci::vec2 topLeft(upper_left_corner_ + ci::vec2(0, pixels_y_));
   map<float, size_t>::iterator it;
   for ( it = small_speed_frequency_.begin(); it != small_speed_frequency_.end(); it++) {
-    ci::gl::drawSolidRect(ci::Rectf(topLeft, topLeft - ci::vec2(-5, 10*small_speed_frequency_[it->first])));
-    topLeft += ci::vec2(2, 0);
+    ci::gl::drawSolidRect(ci::Rectf
+         (topLeft, topLeft - ci::vec2(-kRectangleWidth,
+                                    kRectMultiplier *small_speed_frequency_[it->first]))
+         );
+    topLeft += ci::vec2(kRectangleWidth, 0);
   }
 }
 
 void HistogramGenerator::DrawMedHistRects() {
   ci::gl::color(kMedColor);
-  ci::vec2 topLeft = ci::vec2(upper_left_corner_ + glm::vec2(0, 200+pixels_y_));
+  ci::vec2 topLeft = ci::vec2(upper_left_corner_ + glm::vec2(0, kHistogramDist+pixels_y_));
   map<float, size_t>::iterator it;
   for ( it = med_speed_frequency_.begin(); it != med_speed_frequency_.end(); it++) {
-    ci::gl::drawSolidRect(ci::Rectf(topLeft, topLeft - ci::vec2(-5, 10*med_speed_frequency_[it->first])));
-    topLeft += ci::vec2(2, 0);
+    ci::gl::drawSolidRect(
+        ci::Rectf(topLeft, topLeft - ci::vec2(-kRectangleWidth,
+                           kRectMultiplier *med_speed_frequency_[it->first]))
+        );
+    topLeft += ci::vec2(kRectangleWidth, 0);
   }
 }
 
 void HistogramGenerator::DrawLargeHistRects() {
   ci::gl::color(kLargeColor);
-  ci::vec2 topLeft = ci::vec2(upper_left_corner_ + glm::vec2(0, 400+pixels_y_));
+  ci::vec2 topLeft = ci::vec2(upper_left_corner_ + glm::vec2(0, 2*kHistogramDist+pixels_y_));
   map<float, size_t>::iterator it;
   for ( it = large_speed_frequency_.begin(); it != large_speed_frequency_.end(); it++) {
-    ci::gl::drawSolidRect(ci::Rectf(topLeft, topLeft - ci::vec2(-5, 10*large_speed_frequency_[it->first])));
-    topLeft += ci::vec2(2, 0);
+    ci::gl::drawSolidRect(ci::Rectf(
+            topLeft,topLeft - ci::vec2(-kRectangleWidth,
+                                    kRectMultiplier *large_speed_frequency_[it->first]))
+        );
+    topLeft += ci::vec2(kRectangleWidth, 0);
   }
 }
 
@@ -94,24 +101,25 @@ void HistogramGenerator::DrawSmallHistogram() {
 
   ci::gl::drawStringCentered(
       "Speed",
-      upper_left_corner_+glm::vec2(pixels_x_/2, pixels_y_+20),
+      upper_left_corner_ + glm::vec2(pixels_x_/2, pixels_y_+kXLabelMargin),
       ci::Color(kSmallColor));
+
   DrawSmallHistRects();
 }
 
 void HistogramGenerator::DrawMedHistogram() {
   ci::gl::color(kMedColor);
   ci::gl::drawStrokedRect(ci::Rectf(
-      upper_left_corner_ + glm::vec2(0, 200), upper_left_corner_ + ci::vec2(pixels_x_, 200 + pixels_y_)));
+      upper_left_corner_ + glm::vec2(0, kHistogramDist), upper_left_corner_ + ci::vec2(pixels_x_, kHistogramDist + pixels_y_)));
 
   ci::gl::drawStringCentered(
       "Frequency",
-      upper_left_corner_+ glm::vec2(-kYLabelMargin, 200 + pixels_y_/2),
+      upper_left_corner_+ glm::vec2(-kYLabelMargin, kHistogramDist + pixels_y_/2),
       ci::Color(kMedColor));
 
   ci::gl::drawStringCentered(
       "Speed",
-      upper_left_corner_+glm::vec2(pixels_x_/2, pixels_y_+220),
+      upper_left_corner_+glm::vec2(pixels_x_/2, pixels_y_+kHistogramDist+kXLabelMargin),
       ci::Color(kMedColor));
 
   DrawMedHistRects();
@@ -120,16 +128,16 @@ void HistogramGenerator::DrawMedHistogram() {
 void HistogramGenerator::DrawLargeHistogram() {
   ci::gl::color(kLargeColor);
   ci::gl::drawStrokedRect(ci::Rectf(
-      upper_left_corner_ + glm::vec2(0, 400), upper_left_corner_ + ci::vec2(pixels_x_, 400 + pixels_y_)));
+      upper_left_corner_ + glm::vec2(0, 2*kHistogramDist), upper_left_corner_ + ci::vec2(pixels_x_, 2*kHistogramDist + pixels_y_)));
 
   ci::gl::drawStringCentered(
       "Frequency",
-      upper_left_corner_+glm::vec2(-kYLabelMargin, 400 + pixels_y_/2),
+      upper_left_corner_+glm::vec2(-kYLabelMargin, 2*kHistogramDist + pixels_y_/2),
       ci::Color(kLargeColor));
 
   ci::gl::drawStringCentered(
       "Speed",
-      upper_left_corner_+glm::vec2(pixels_x_/2, pixels_y_+420),
+      upper_left_corner_+glm::vec2(pixels_x_/2, pixels_y_+2*kHistogramDist+kXLabelMargin),
       ci::Color(kLargeColor));
 
   DrawLargeHistRects();
