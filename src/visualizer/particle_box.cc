@@ -11,7 +11,7 @@ ParticleBox::ParticleBox(const glm::vec2 &upper_left_corner,
       pixels_x_(pixels_x),
       pixels_y_(pixels_y){}
 
-void ParticleBox::RenderParticles() {
+void ParticleBox::RenderParticles() const {
   ci::gl::color(kBoxColor);
   ci::gl::drawStrokedRect(ci::Rectf(
       upper_left_corner_, upper_left_corner_ + ci::vec2(pixels_x_, pixels_y_)));
@@ -66,11 +66,11 @@ void ParticleBox::Clear() {
   particles_.clear();
 }
 
-const std::vector<Particle> ParticleBox::GetParticles() {
+const std::vector<Particle> ParticleBox::GetParticles() const {
   return particles_;
 }
 
-void ParticleBox::IncreaseDecreaseSpeed(float speed_factor) {
+void ParticleBox::IncrementSpeed(float speed_factor) {
   for(auto & particle : particles_) {
     vec2 new_velocity = speed_factor * particle.GetVelocity();
     particle.SetVelocity(new_velocity);

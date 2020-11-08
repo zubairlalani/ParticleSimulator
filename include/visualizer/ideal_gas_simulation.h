@@ -56,7 +56,6 @@ class IdealGasSimulation : public ci::app::App {
   const size_t kMargin = 50; // Margins of the particle box from the simulation window
   const size_t kLeftHistogramMargin = 550; // Distance from left that the Histogram starts
   const size_t kParticleBoxSize = 400; // Side length of the Particle Box
-  const size_t kHistogramSize = 100; // Size of a single Histogram
   const float kSpeedUpFactor = 1.1f; // How much speed of particles increases for every up key
   const float kSlowDownFactor = .9f; // How much speed decreases for every down key is pressed
   idealgas::ParticleBox particle_box_; // Box on screen that holds all particles

@@ -7,12 +7,12 @@ namespace idealgas{
 HistogramManager::HistogramManager(const glm::vec2 &upper_left_corner)
     : small_histogram_(upper_left_corner, kHistogramSize, kHistogramSize, kSmallColor),
       med_histogram_(
-          upper_left_corner + vec2(0, kHistogramDist+kHistogramSize),
+          upper_left_corner + vec2(0, kHistogramDist + kHistogramSize),
           kHistogramSize,
           kHistogramSize,
           kMedColor),
       large_histogram_(
-          upper_left_corner + vec2(0, 2*kHistogramDist+kHistogramSize),
+          upper_left_corner + vec2(0, 2* (kHistogramDist+kHistogramSize)),
           kHistogramSize,
           kHistogramSize,
           kLargeColor) {}

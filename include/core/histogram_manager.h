@@ -40,7 +40,7 @@ class HistogramManager {
 
  private:
 
-  const size_t kHistogramDist = 200; // Vertical distance between each histogram on the screen
+  const size_t kHistogramDist = 100; // Vertical distance between each histogram on the screen
   const size_t kHistogramSize = 100; // Size of a single Histogram (side length of square)
 
   /**

@@ -64,8 +64,7 @@ TEST_CASE("Changing speeds of particles") {
   particleBox.AddParticle(0);
 
   SECTION("Speeding up particles") {
-
-    particleBox.IncreaseDecreaseSpeed(2.0f);
+    particleBox.IncrementSpeed(2.0f);
     glm::vec2 test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(4.0f, 2.0f);
     REQUIRE(fabs(test.x) < .00001f);
     REQUIRE(fabs(test.y) < .00001f);
@@ -83,7 +82,7 @@ TEST_CASE("Changing speeds of particles") {
       particleBox.UpdateParticles(50);
     }
 
-    particleBox.IncreaseDecreaseSpeed(.9f);
+    particleBox.IncrementSpeed(.9f);
 
     glm::vec2 test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(1.8f, 0.9f);
     REQUIRE(fabs(test.x) < .00001f);
@@ -94,7 +93,7 @@ TEST_CASE("Changing speeds of particles") {
     REQUIRE(fabs(test.y) < .00001f);
 
     // Test with speed factor of 0
-    particleBox.IncreaseDecreaseSpeed(0);
+    particleBox.IncrementSpeed(0);
     test = particleBox.GetParticles()[0].GetVelocity() - glm::vec2(0, 0);
 
     REQUIRE(fabs(test.x) < .00001f);

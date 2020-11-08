@@ -30,7 +30,7 @@ class ParticleBox {
   /**
    * Draws the particle box and all the particles that it contains
    */
-  void RenderParticles();
+  void RenderParticles() const;
 
   /**
    * Updates all particle positions based on their current velocities
@@ -55,28 +55,24 @@ class ParticleBox {
    * Gets the vector of all the particles within the particle box
    * @return vector of particle objects
    */
-  const std::vector<Particle> GetParticles();
+  const std::vector<Particle> GetParticles() const;
 
   /**
    * Speeds up or slows down all particles on the screen
    * @param speed_factor - how much the all the particles speed increases by
    */
-  void IncreaseDecreaseSpeed(float speed_factor);
+  void IncrementSpeed(float speed_factor);
 
   const static size_t kSmallParticleRadius = 5; // Radius that all small particles have
   const static size_t kMedParticleRadius = 7; // Radius of medium sized particles
   const static size_t kLargeParticleRadius = 10; // Radius of large particles
 
-  const ci::Color kSmallColor = ci::Color(0, 0, 100); // Color of particle box borders
-  const ci::Color kMedColor = ci::Color(0, 100, 0); // Color of particle box borders
-  const ci::Color kLargeColor = ci::Color(100, 0, 0); // Color of particle box borders
  private:
   const ci::Color kBoxColor = ci::Color::white(); // Color of particle box borders
-  //const ci::Color kParticleColor = ci::Color(75, 0, 130); // Color of all the particles
-
   const float kSmallMass = 1; // mass of the smallest particle
   const float kMedMass = 5; // mass of the medium sized particle
   const float kLargeMass = 10; // mass of the largest particle
+
   glm::vec2 upper_left_corner_; // Top left corner of the particle box
   std::vector<Particle> particles_; // List of all particles within the box currently
   size_t pixels_x_; // Amount of pixels horizontally that the box stretches over

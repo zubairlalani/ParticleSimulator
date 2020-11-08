@@ -68,11 +68,11 @@ void IdealGasSimulation::keyDown(ci::app::KeyEvent event) {
       break;
 
     case ci::app::KeyEvent::KEY_UP:
-      particle_box_.IncreaseDecreaseSpeed(kSpeedUpFactor);
+      particle_box_.IncrementSpeed(kSpeedUpFactor);
       break;
 
     case ci::app::KeyEvent::KEY_DOWN:
-      particle_box_.IncreaseDecreaseSpeed(kSlowDownFactor);
+      particle_box_.IncrementSpeed(kSlowDownFactor);
       break;
   }
 }
@@ -81,9 +81,9 @@ void IdealGasSimulation::button(size_t id) {
   if(id < 3) {
     particle_box_.AddParticle(id);
   } else if(id == 3) {
-    particle_box_.IncreaseDecreaseSpeed(kSpeedUpFactor);
+    particle_box_.IncrementSpeed(kSpeedUpFactor);
   } else if(id == 4) {
-    particle_box_.IncreaseDecreaseSpeed(kSlowDownFactor);
+    particle_box_.IncrementSpeed(kSlowDownFactor);
   } else {
     particle_box_.Clear();
   }
