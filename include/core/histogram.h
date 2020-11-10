@@ -35,6 +35,24 @@ class Histogram {
    */
   void Clear();
 
+  /**
+   * Gets the frequency that each speed for a given particle type appears
+   * @return map - key is the speed and the value is the frequency that a particle has a speed
+   */
+  const map<float, size_t> GetSpeedFrequencies() const;
+
+  /**
+   * Gets the location of the upper left corner of the histogram box
+   * @return vec2 - point that indicates the upper left corner of the histogram
+   */
+  const glm::vec2 GetUpperLeftCorner() const;
+
+  /**
+   * Gets the width and height of the box - for testing
+   * @return Dimensions of the histogram box as a vec2
+   */
+  const glm::vec2 GetDimensions() const;
+
  private:
 
   const int kYLabelMargin = 35; // Distance to left of the y axis that the y label is drawn

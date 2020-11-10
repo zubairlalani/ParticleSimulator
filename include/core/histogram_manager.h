@@ -38,6 +38,24 @@ class HistogramManager {
    */
   void UpdateHistograms(const vector<Particle>& particles_);
 
+  /**
+   * Gets the histogram that displays the speed data of the small particle
+   * @return Instance of a Histogram object that contains the speed frequency data
+   */
+  const Histogram GetSmallParticleHistogram() const;
+
+  /**
+   * Gets the histogram that displays the speed data of the medium particle
+   * @return Instance of a Histogram object that contains the speed frequency data
+   */
+  const Histogram GetMediumParticleHistogram() const;
+
+  /**
+   * Gets the histogram that displays the speed data of the large particle
+   * @return Instance of a Histogram object that contains the speed frequency data
+   */
+  const Histogram GetLargeParticleHistogram() const;
+
  private:
 
   const size_t kHistogramDist = 100; // Vertical distance between each histogram on the screen

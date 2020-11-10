@@ -17,19 +17,6 @@ void Histogram::UpdateSpeedFrequency(float speed) {
   }
 }
 
-void Histogram::DrawHistRects() {
-  ci::gl::color(histogram_color_);
-  ci::vec2 topLeft(upper_left_corner_ + ci::vec2(0, pixels_y_));
-  map<float, size_t>::iterator it;
-  for ( it = speed_frequency_.begin(); it != speed_frequency_.end(); it++) {
-    ci::gl::drawSolidRect(ci::Rectf
-                              (topLeft, topLeft - ci::vec2(-kRectangleWidth,
-                                                           kRectMultiplier *speed_frequency_[it->first]))
-    );
-    topLeft += ci::vec2(kRectangleWidth, 0);
-  }
-}
-
 void Histogram::DrawHistogram() {
   ci::gl::color(histogram_color_);
   ci::gl::drawStrokedRect(ci::Rectf(
@@ -50,4 +37,30 @@ void Histogram::DrawHistogram() {
 void Histogram::Clear() {
   speed_frequency_.clear();
 }
+
+const map<float, size_t> Histogram::GetSpeedFrequencies() const {
+  return speed_frequency_;
+}
+
+const glm::vec2 Histogram::GetUpperLeftCorner() const {
+  return upper_left_corner_;
+}
+
+const glm::vec2 Histogram::GetDimensions() const {
+  return glm::vec2(pixels_x_, pixels_y_);
+}
+
+void Histogram::DrawHistRects() {
+  ci::gl::color(histogram_color_);
+  ci::vec2 topLeft(upper_left_corner_ + ci::vec2(0, pixels_y_));
+  map<float, size_t>::iterator it;
+  for ( it = speed_frequency_.begin(); it != speed_frequency_.end(); it++) {
+    ci::gl::drawSolidRect(ci::Rectf
+                              (topLeft, topLeft - ci::vec2(-kRectangleWidth,
+                                                           kRectMultiplier *speed_frequency_[it->first]))
+    );
+    topLeft += ci::vec2(kRectangleWidth, 0);
+  }
+}
+
 }

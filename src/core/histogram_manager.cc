@@ -38,10 +38,22 @@ void HistogramManager::UpdateHistograms(const vector<Particle>& particles) {
   }
 }
 
+const Histogram HistogramManager::GetSmallParticleHistogram() const {
+  return small_histogram_;
+}
+
+const Histogram HistogramManager::GetMediumParticleHistogram() const {
+  return med_histogram_;
+}
+
+const Histogram HistogramManager::GetLargeParticleHistogram() const {
+  return large_histogram_;
+}
+
 void HistogramManager::ClearHistograms() {
   small_histogram_.Clear();
   med_histogram_.Clear();
   large_histogram_.Clear();
 }
 
-}
+} // Namespace idealgas
