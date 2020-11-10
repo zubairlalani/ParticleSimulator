@@ -7,7 +7,7 @@ namespace idealgas{
 HistogramManager::HistogramManager(const glm::vec2 &upper_left_corner)
     : small_histogram_(upper_left_corner, kHistogramSize, kHistogramSize, kSmallColor),
       med_histogram_(
-          upper_left_corner + vec2(0, kHistogramDist + kHistogramSize),
+          upper_left_corner + vec2(0, kHistogramDist + kHistogramSize), // starts drawing kHistogramDist below the first histogram
           kHistogramSize,
           kHistogramSize,
           kMedColor),
@@ -28,6 +28,7 @@ void HistogramManager::UpdateHistograms(const vector<Particle>& particles) {
   for(size_t i = 0; i < particles.size(); i++) {
     float speed = roundf(glm::length(particles[i].GetVelocity()) * 10) / 10; //Rounding to the tenth
 
+    // Based on type of particle, update corresponding histogram
     if(particles[i].GetRadius() == idealgas::ParticleBox::kSmallParticleRadius) {
       small_histogram_.UpdateSpeedFrequency(speed);
     } else if (particles[i].GetRadius() == idealgas::ParticleBox::kMedParticleRadius) {

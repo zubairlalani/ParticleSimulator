@@ -68,6 +68,7 @@ class ParticleBox {
   const static size_t kLargeParticleRadius = 10; // Radius of large particles
 
  private:
+
   const ci::Color kBoxColor = ci::Color::white(); // Color of particle box borders
   const float kSmallMass = 1; // mass of the smallest particle
   const float kMedMass = 5; // mass of the medium sized particle
