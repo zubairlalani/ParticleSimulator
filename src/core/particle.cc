@@ -3,8 +3,8 @@
 namespace idealgas{
 
 Particle::Particle(size_t radius, float mass) {
-  if(radius < 1) {
-    throw std::invalid_argument("Not a valid radius");
+  if(radius < 1 || mass <= 0) {
+    throw std::invalid_argument("Not a valid radius or mass");
   }
   radius_= radius;
   mass_ = mass;
@@ -30,7 +30,7 @@ bool Particle::IsParticleCollision(const Particle& other_particle) const {
 
 glm::vec2 Particle::CalculateVelocity(const Particle& other) const {
   // Using the particle collision equation:
-  // v1' = v1 - dotproduct((v1-v2),(x1-x2))/||x1-x2||^2 * (x1 - x2)
+  // v1' = v1 - 2*m2/(m1 + m2) * dotproduct((v1-v2),(x1-x2))/||x1-x2||^2 * (x1 - x2)
 
   float m2 = other.GetMass();
   float mass_calc = 2*m2 / (mass_ + m2);
@@ -41,7 +41,7 @@ glm::vec2 Particle::CalculateVelocity(const Particle& other) const {
   double dot_product = glm::dot(velocity_diff, particle_dist);
   double denominator =
       glm::pow(glm::length(particle_dist), 2);
-  particle_dist *= dot_product / denominator;;
+  particle_dist *= dot_product / denominator;
   glm::vec2 new_vel = velocity_ - mass_calc*particle_dist;
 
   // Can't set new velocity here - need to first calculate the new velocity
