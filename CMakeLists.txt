@@ -50,26 +50,23 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
-list(APPEND CORE_SOURCE_FILES)
 
-list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES})
+list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
+        src/visualizer/ideal_gas_simulation.cc src/visualizer/particle_box.cc)
 
-list(APPEND TEST_FILES)
-
-add_executable(simulate apps/simulation_main.cc ${CORE_SOURCE_FILES} tests/test_main.cc)
-target_include_directories(simulate PRIVATE include)
+list(APPEND TEST_FILES tests/test_particle.cc tests/test_particle_box.cc tests/test_histogram.cc)
 
 ci_make_app(
-        APP_NAME        visualization
+        APP_NAME        ideal-gas-simulation
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         apps/simulation_main.cc ${SOURCE_FILES}
+        SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES} src/core/particle.cc include/core/particle.h src/core/histogram_manager.cc include/core/histogram_manager.h src/core/histogram.cc include/core/histogram.h
         INCLUDES        include
 )
 
 ci_make_app(
         APP_NAME        ideal-gas-test
         CINDER_PATH     ${CINDER_PATH}
-        SOURCES         tests/test_main.cc ${CORE_SOURCE_FILES} ${TEST_FILES}
+        SOURCES         tests/test_main.cc ${CORE_SOURCE_FILES} src/core/particle.cc include/core/particle.h src/visualizer/particle_box.cc include/visualizer/particle_box.h src/core/histogram_manager.cc include/core/histogram_manager.h src/core/histogram.cc include/core/histogram.h ${TEST_FILES}
         INCLUDES        include
         LIBRARIES       catch2
 )
